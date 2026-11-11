@@ -12,304 +12,484 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <style>
+:root{--b1:#0D47A1;--b2:#1E88E5;--ink:#0B1F3A;--ink2:#2C3E57;--mute:#5D6B82;--line:#DDE6F1;--soft:#F2F6FB;--y:#FDD835;--g:#43A047;--navy:#0B1F3A;--navy2:#13305A}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:#fff}
-a{color:#0D47A1}a:hover{color:#0B1F3A}
-a:focus-visible{outline:3px solid #FDD835;outline-offset:2px}
+body{margin:0;background:#fff;font-family:Outfit,system-ui,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+a{color:var(--b1)}a:hover{color:var(--ink)}
+a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid var(--y);outline-offset:2px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
 section[id]{scroll-margin-top:76px}
+h1,h2,h3{margin:0}
+.eyebrow{font-size:14px;font-weight:700;letter-spacing:.08em;color:var(--b2)}
+h2{margin-top:8px;font-size:42px;font-weight:800;letter-spacing:-.01em;line-height:1.1}
+.lead{font-size:18px;line-height:1.6;color:var(--mute);max-width:620px;margin:14px 0 0}
+
+/* nav */
+header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);border-bottom:1px solid var(--line);backdrop-filter:blur(10px)}
+.nav{display:flex;align-items:center;gap:24px;flex-wrap:wrap;padding:14px 24px;max-width:1200px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.logo i{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,var(--b1),var(--b2));display:flex;align-items:center;justify-content:center}
+.logo b{font-size:20px;font-weight:800}
+.nav nav{display:flex;gap:22px;flex-grow:1;font-size:15px;font-weight:500}
+.nav nav a{text-decoration:none;color:var(--ink2)}
+.btn{height:48px;padding:0 20px;border-radius:24px;display:inline-flex;align-items:center;gap:10px;text-decoration:none;font-weight:600;font-size:15px;border:0;cursor:pointer;font-family:inherit}
+.btn.dark{background:var(--b1);color:#fff}
+.store{height:56px;padding:0 20px;border-radius:16px;display:inline-flex;align-items:center;gap:12px;text-decoration:none}
+.store small{display:block;font-size:11px}
+.store b{font-size:17px}
+.store.play{background:#fff;color:var(--ink)}.store.play small{color:var(--mute)}
+.store.soon{border:1.5px dashed rgba(255,255,255,.6);color:#fff;cursor:default}.store.soon small{color:#DCE8FA}
+
+/* hero */
+.hero{background:linear-gradient(135deg,#0B3A8C 0%,#1565C0 55%,#1E88E5 100%);color:#fff;position:relative;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:radial-gradient(600px 300px at 85% 10%,rgba(253,216,53,.18),transparent 60%),radial-gradient(500px 300px at 10% 90%,rgba(67,160,71,.22),transparent 60%)}
+.hero .wrap{position:relative;display:flex;flex-wrap:wrap;gap:40px;align-items:center;padding-top:64px;padding-bottom:72px}
+.hero-text{flex:999 1 460px;min-width:0}
+.pill{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 14px;border-radius:17px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.28);font-size:14px;font-weight:500}
+.pill i{width:8px;height:8px;border-radius:4px;background:#7CDB80;box-shadow:0 0 0 0 rgba(124,219,128,.7);animation:ping 1.8s infinite}
+h1{margin-top:22px;font-size:60px;line-height:1.04;font-weight:800;letter-spacing:-.02em}
+h1 em{font-style:normal;color:var(--y)}
+.rot{display:inline-block;min-width:4.2ch;color:var(--y);border-bottom:4px solid rgba(253,216,53,.5)}
+.hero p.sub{margin:22px 0 0;font-size:19px;line-height:1.55;color:#DCE8FA;max-width:520px}
+.ctas{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}
+.ghost{height:56px;padding:0 22px;border-radius:16px;border:1.5px solid rgba(255,255,255,.55);color:#fff;text-decoration:none;display:inline-flex;align-items:center;font-weight:600;font-size:16px}
+.ghost:hover{color:#fff;background:rgba(255,255,255,.08)}
+
+/* live map card */
+.live{flex:1 1 360px;display:flex;justify-content:center}
+.mapcard{width:100%;max-width:420px;border-radius:28px;background:#fff;color:var(--ink);box-shadow:0 30px 70px rgba(4,20,50,.45);overflow:hidden}
+.mapcard svg{display:block;width:100%;height:auto}
+.mapcard .sheet{padding:16px 16px 18px}
+.sheet h4{margin:0 0 10px;font-size:16px;display:flex;justify-content:space-between;align-items:center}
+.sheet h4 span{font-size:12px;font-weight:600;color:#0f7a56;background:#dcf5ec;border-radius:10px;padding:3px 8px}
+.offer{display:flex;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;margin-top:8px;opacity:0;transform:translateY(8px);animation:offerIn .5s forwards}
+.offer:nth-child(2){animation-delay:.6s}.offer:nth-child(3){animation-delay:1.2s}.offer:nth-child(4){animation-delay:1.8s}
+.offer .av{width:36px;height:36px;border-radius:18px;display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff;flex-shrink:0}
+.offer b{display:block;font-size:14px}.offer small{color:var(--mute);font-size:12px}
+.offer .pr{margin-left:auto;font-weight:800;font-size:17px}
+.offer.best{border-color:var(--b2);background:#E3EFFD}
+.stripe{height:6px;background:repeating-linear-gradient(90deg,var(--y) 0 28px,var(--g) 28px 56px)}
+
+/* promise strip */
+.promise{background:var(--soft)}
+.promise .wrap{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;padding-top:28px;padding-bottom:28px}
+.pr-i{display:flex;gap:14px;align-items:center}
+.pr-i i{width:46px;height:46px;flex-shrink:0;border-radius:14px;display:flex;align-items:center;justify-content:center}
+.pr-i b{font-size:17px}.pr-i span{font-size:14px;color:var(--mute)}
+
+/* fare explorer */
+.explore{padding:88px 0 40px}
+.xbox{margin-top:32px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.panel{border:1px solid var(--line);border-radius:24px;padding:24px;background:#fff}
+.seg{display:flex;gap:8px;flex-wrap:wrap}
+.seg button{height:48px;padding:0 16px;border-radius:14px;border:1.5px solid var(--line);background:#fff;font:600 15px Outfit,sans-serif;color:var(--ink);cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+.seg button[aria-pressed="true"]{border-color:var(--b2);background:#E3EFFD;color:var(--b1)}
+label.lbl{display:block;font-weight:600;margin:20px 0 8px}
+input[type=range]{width:100%;accent-color:var(--b1);height:28px}
+.km{font-size:28px;font-weight:800}
+.cmp{margin-top:18px}
+.bar{display:flex;align-items:center;gap:12px;margin-top:12px}
+.bar span:first-child{width:150px;font-size:14px;color:var(--ink2)}
+.bar .track{display:block;flex:1;height:14px;border-radius:7px;background:var(--soft);overflow:hidden}
+.bar .fill{display:block;height:100%;border-radius:7px;transition:width .4s}
+.bar b{width:76px;text-align:right}
+.note{font-size:12.5px;color:var(--mute);margin-top:14px;line-height:1.5}
+.caps .offer{opacity:1;transform:none;animation:none;cursor:pointer;transition:border-color .2s,background .2s}
+.caps .offer:hover{border-color:var(--b2)}
+
+/* services */
+.services{padding:72px 0 24px}
+.grid6{margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.card{padding:24px;border-radius:22px;border:1px solid var(--line);background:#fff;transition:transform .25s,box-shadow .25s}
+.card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(11,31,58,.08)}
+.card h3{margin:14px 0 6px;font-size:21px}.card p{margin:0;font-size:15px;line-height:1.5;color:var(--mute)}
+.card.gold{background:linear-gradient(135deg,#FFF6D6,#FDEBB0);border:0}.card.gold p{color:#6B5413}
+
+/* how */
+.how{padding:72px 0}
+.steps{margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;counter-reset:s}
+.step{padding:28px;border-radius:22px;background:var(--soft);position:relative}
+.step::before{counter-increment:s;content:counter(s);width:44px;height:44px;border-radius:22px;background:var(--b1);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:19px}
+.step:last-child::before{background:var(--g)}
+.step h3{margin:18px 0 6px;font-size:22px}.step p{margin:0;font-size:16px;line-height:1.55;color:var(--mute)}
+
+/* captains */
+.capt{background:var(--navy);color:#fff}
+.capt .wrap{padding-top:88px;padding-bottom:88px;display:flex;flex-wrap:wrap;gap:40px;align-items:flex-start}
+.capt .l{flex:999 1 420px;min-width:0}
+.capt .eyebrow{color:var(--y)}
+.capt .lead{color:#C9D6EA}
+.calc{flex:1 1 400px;background:var(--navy2);border-radius:24px;padding:26px}
+.calc label{font-weight:600;display:block}
+.calc .big{font-size:34px;font-weight:800;color:var(--y);margin:4px 0 10px}
+.res{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}
+.res div{background:#0B1F3A;border-radius:16px;padding:16px}
+.res small{color:#9FB2CF;font-size:13px}
+.res b{display:block;font-size:24px;margin-top:4px}
+.res .win{outline:2px solid var(--y)}
+.calc .note{color:#9FB2CF}
+.yb{height:54px;padding:0 24px;border-radius:16px;background:var(--y);color:var(--ink);text-decoration:none;font-weight:700;font-size:16px;display:inline-flex;align-items:center;margin-top:26px}
+.yb:hover{color:var(--ink);filter:brightness(1.05)}
+.ticks{list-style:none;padding:0;margin:24px 0 0;display:grid;gap:12px}
+.ticks li{display:flex;gap:10px;align-items:flex-start;font-size:16px;color:#DCE8FA}
+.ticks li::before{content:"";width:22px;height:22px;flex-shrink:0;border-radius:11px;background:var(--g) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 12l4 4 8-8'/%3E%3C/svg%3E") center/14px no-repeat}
+
+.join{flex:1 1 100%;border-top:1px solid rgba(255,255,255,.14);padding-top:40px}
+.join h3{font-size:26px}
+.jsteps{list-style:none;padding:0;margin:22px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;counter-reset:j}
+.jsteps li{background:var(--navy2);border-radius:20px;padding:22px;position:relative}
+.jsteps li::before{counter-increment:j;content:counter(j);width:38px;height:38px;border-radius:19px;background:var(--y);color:var(--ink);font-weight:800;display:flex;align-items:center;justify-content:center;margin-bottom:14px}
+.jsteps b{display:block;font-size:17px}.jsteps span{display:block;margin-top:6px;font-size:14.5px;line-height:1.5;color:#C9D6EA}
+.jnote{margin:18px 0 0;font-size:14px;color:#9FB2CF}
+
+/* safety */
+.safety{padding:88px 0}
+.sgrid{margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.si{display:flex;gap:14px;padding:22px;border-radius:20px;border:1px solid var(--line)}
+.si svg{flex-shrink:0}.si b{font-size:17px}.si span{display:block;font-size:15px;color:var(--mute);line-height:1.5;margin-top:2px}
+
+/* faq */
+.faq{padding:24px 0 88px}
+.faq details{border:1px solid var(--line);border-radius:18px;padding:0 20px;margin-top:12px;background:#fff}
+.faq details[open]{background:var(--soft)}
+.faq summary{cursor:pointer;list-style:none;padding:18px 0;font-weight:700;font-size:17px;display:flex;justify-content:space-between;gap:16px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-size:24px;line-height:1;color:var(--b2);transition:transform .2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{margin:0 0 18px;color:var(--ink2);line-height:1.6}
+
+/* download */
+.dl{padding:0 24px}
+.dl .box{max-width:1152px;margin:0 auto;border-radius:32px;background:linear-gradient(135deg,var(--b1),var(--b2));color:#fff;padding:56px 40px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between}
+.dl h2{font-size:38px;margin:0}.dl p{margin:10px 0 0;font-size:18px;color:#DCE8FA}
+
+/* contact + footer */
+.contact{padding:88px 0 64px}
+.cgrid{margin-top:28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.cgrid>*{padding:24px;border-radius:20px;background:var(--soft);text-decoration:none;color:var(--ink)}
+.cgrid small{font-size:13px;font-weight:600;color:var(--mute);letter-spacing:.06em}
+.cgrid b{display:block;margin-top:8px;font-size:18px}.cgrid span{font-size:14px;color:var(--mute);line-height:1.5}
+footer{border-top:1px solid var(--line)}
+footer .wrap{padding-top:28px;padding-bottom:28px;display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center;font-size:14px;color:var(--mute)}
+footer a{color:var(--ink2);text-decoration:none}
+
+/* mobile sticky bar */
+.mbar{display:none}
 @media (max-width:720px){
-  h1{font-size:40px!important}
-  h2{font-size:32px!important}
-  header nav{order:3;width:100%;gap:16px!important;overflow-x:auto;flex-wrap:nowrap!important}
-  #download>div{padding:36px 24px!important}
+  h1{font-size:42px}h2{font-size:32px}
+  .nav nav{order:3;width:100%;gap:16px;overflow-x:auto;white-space:nowrap}
+  .dl .box{padding:36px 24px}
+  .bar span:first-child{width:110px}
+  .mbar{display:flex;position:fixed;left:12px;right:12px;bottom:12px;z-index:30;height:56px;border-radius:18px;background:var(--b1);color:#fff;align-items:center;justify-content:center;gap:10px;font-weight:700;text-decoration:none;box-shadow:0 10px 30px rgba(4,20,50,.35);transform:translateY(120%);transition:transform .3s}
+  .mbar.show{transform:none}.mbar:hover{color:#fff}
+  footer{padding-bottom:80px}
+}
+
+/* motion */
+@keyframes ping{70%{box-shadow:0 0 0 10px rgba(124,219,128,0)}100%{box-shadow:0 0 0 0 rgba(124,219,128,0)}}
+@keyframes offerIn{to{opacity:1;transform:none}}
+@keyframes pulse{0%{r:8;opacity:.6}100%{r:34;opacity:0}}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.reveal.in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .reveal{opacity:1;transform:none}.offer{opacity:1;transform:none}
 }
 </style>
 </head>
 <body>
-<div style="font-family: Outfit, sans-serif; color: #0B1F3A; background: #FFFFFF; min-height: 100vh;">
 
-  <!-- ===== NAV ===== -->
-  <header style="position: sticky; top: 0; z-index: 5; background: rgba(255,255,255,.94); border-bottom: 1px solid #DDE6F1; backdrop-filter: blur(8px);">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; gap: 24px; flex-wrap: wrap;">
-      <a href="#home" style="display: flex; align-items: center; gap: 10px; text-decoration: none; color: #0B1F3A;">
-        <span style="width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(135deg,#0D47A1,#1E88E5); display: flex; align-items: center; justify-content: center;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FDD835" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg></span>
-        <b style="font-size: 20px; font-weight: 800;">GrabVehicle</b></a>
-      <nav aria-label="Main" style="display: flex; gap: 22px; flex-wrap: wrap; flex-grow: 1; font-size: 15px; font-weight: 500;">
-        <a href="#services" style="text-decoration: none; color: #2C3E57;">Ride</a>
-        <a href="#how" style="text-decoration: none; color: #2C3E57;">How it works</a>
-        <a href="#captains" style="text-decoration: none; color: #2C3E57;">Drive with us</a>
-        <a href="#safety" style="text-decoration: none; color: #2C3E57;">Safety</a>
-        <a href="#contact" style="text-decoration: none; color: #2C3E57;">Contact</a>
-      </nav>
-      <a href="https://play.google.com/store/apps/details?id=com.cvv.grab_vehicle" style="height: 44px; padding: 0 18px; border-radius: 22px; background: #0D47A1; color: #FFFFFF; text-decoration: none; font-weight: 600; font-size: 15px; display: flex; align-items: center;">Get the app</a>
-    </div>
-  </header>
-
-  <!-- ===== HERO ===== -->
-  <section id="home" style="background: linear-gradient(135deg,#0D47A1 0%,#1565C0 55%,#1E88E5 100%); color: #FFFFFF; position: relative; overflow: hidden;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 72px 24px 0; display: flex; flex-wrap: wrap; gap: 48px; align-items: flex-end;">
-      <div style="flex: 999 1 460px; min-width: 0; padding-bottom: 80px;">
-        <div style="display: inline-flex; align-items: center; gap: 8px; height: 34px; padding: 0 14px; border-radius: 17px; background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.28); font-size: 14px; font-weight: 500;">
-          <span style="width: 8px; height: 8px; border-radius: 4px; background: #7CDB80;"></span>Now in Karimnagar, Telangana</div>
-        <h1 style="margin: 22px 0 0; font-size: 60px; line-height: 1.04; font-weight: 800; letter-spacing: -.02em;">Choose your captain.<br>See the price.<br><span style="color: #FDD835;">No surge, ever.</span></h1>
-        <p style="margin: 22px 0 0; font-size: 19px; line-height: 1.55; color: #DCE8FA; max-width: 520px;">Bike, auto and cab rides, parcels, and captains by the hour or day. Every nearby captain shows their own price, so you pick the one that suits you before you book.</p>
-        <div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 30px;">
-          <a href="https://play.google.com/store/apps/details?id=com.cvv.grab_vehicle" style="height: 56px; padding: 0 22px; border-radius: 16px; background: #FFFFFF; color: #0B1F3A; text-decoration: none; display: flex; align-items: center; gap: 12px;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l14 9-14 9z"></path></svg>
-            <span><span style="display: block; font-size: 11px; color: #5D6B82;">Get it on</span><b style="font-size: 17px;">Google Play</b></span></a>
-          <span role="img" aria-label="App Store — coming soon" style="height: 56px; padding: 0 20px; border-radius: 16px; border: 1.5px dashed rgba(255,255,255,.6); color: #FFFFFF; display: flex; align-items: center; gap: 12px; cursor: default;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9s-1.9-.9-3.2-.8c-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8s1.9.8 3.2.8 2.1-1.2 2.9-2.4c.9-1.4 1.3-2.7 1.3-2.8 0 0-2.4-.9-2.4-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.1-.6 2.8-1.4z"/></svg>
-            <span><span style="display: block; font-size: 11px; color: #DCE8FA;">Coming soon on</span><b style="font-size: 17px;">App Store</b></span></span>
-          <a href="#captains" style="height: 56px; padding: 0 22px; border-radius: 16px; border: 1.5px solid rgba(255,255,255,.55); color: #FFFFFF; text-decoration: none; display: flex; align-items: center; font-weight: 600; font-size: 16px;">Drive and earn →</a>
-        </div>
-      </div>
-      <div style="flex: 1 1 320px; display: flex; justify-content: center;">
-        <div style="width: 340px; height: 560px; border-radius: 44px 44px 0 0; background: #0B1F3A; padding: 14px 14px 0; box-sizing: border-box; box-shadow: 0 30px 60px rgba(4,20,50,.45); overflow: hidden;">
-          <div style="width: 312px; height: 546px; border-radius: 32px 32px 0 0; overflow: hidden; position: relative;">
-            <div style="width: 390px; height: 844px; transform: scale(.8); transform-origin: top left;">
-              <div aria-hidden="true"><div style="width: 390px; height: 844px; position: relative; overflow: hidden; background: #E9EEF5; font-family: Outfit, sans-serif; color: #0B1F3A;">
-
-  <!-- map -->
-  <div style="position: absolute; left: 0; top: 0; width: 390px; height: 400px; background: #E6ECE4;">
-    <svg width="390" height="400" viewBox="0 0 390 400" aria-hidden="true" style="display: block;">
-      <rect width="390" height="400" fill="#EEF2EC"></rect>
-      <path d="M-10 120 L400 60" stroke="#FFFFFF" stroke-width="14"></path>
-      <path d="M60 -10 L150 410" stroke="#FFFFFF" stroke-width="12"></path>
-      <path d="M-10 300 L400 250" stroke="#FFFFFF" stroke-width="10"></path>
-      <path d="M260 -10 L330 410" stroke="#FFFFFF" stroke-width="10"></path>
-      <path d="M300 -10 L390 120" stroke="#F6D77A" stroke-width="16"></path>
-      <path d="M0 200 Q120 180 200 210 T400 190" stroke="#FFFFFF" stroke-width="6" fill="none"></path>
-      <rect x="170" y="90" width="70" height="60" rx="8" fill="#DCE8D4"></rect>
-      <rect x="20" y="320" width="90" height="60" rx="8" fill="#DCE8D4"></rect>
-      <circle cx="195" cy="225" r="36" fill="#1E88E5" fill-opacity="0.12"></circle>
-      <circle cx="195" cy="225" r="9" fill="#1E88E5" stroke="#FFFFFF" stroke-width="4"></circle>
-    </svg>
+<header>
+  <div class="nav">
+    <a class="logo" href="#home"><i><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FDD835" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></i><b>GrabVehicle</b></a>
+    <nav aria-label="Main">
+      <a href="#explore">Prices</a><a href="#services">Ride</a><a href="#captains">Drive with us</a><a href="#safety">Safety</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+    </nav>
+    <a class="btn dark" href="https://play.google.com/store/apps/details?id=com.cvv.grab_vehicle">Get the app</a>
   </div>
+</header>
 
-  <!-- top bar -->
-  <div style="position: absolute; left: 16px; right: 16px; top: 20px; display: flex; align-items: center; gap: 10px;">
-    <div role="presentation" aria-label="Menu" style="width: 44px; height: 44px; border-radius: 22px; border: 0; background: #FFFFFF; box-shadow: 0 4px 14px rgba(11,31,58,.12); display: flex; align-items: center; justify-content: center;">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h10"></path></svg>
-    </div>
-    <div style="flex-grow: 1; height: 44px; border-radius: 22px; background: #FFFFFF; box-shadow: 0 4px 14px rgba(11,31,58,.12); display: flex; align-items: center; gap: 8px; padding: 0 14px;">
-      <span style="width: 8px; height: 8px; border-radius: 4px; background: #43A047;"></span>
-      <span style="font-size: 14px; font-weight: 600;">Karimnagar</span>
-      <span style="font-size: 13px; color: #5D6B82;">· No surge, ever</span>
-    </div>
-    <div style="width: 44px; height: 44px; border-radius: 22px; background: linear-gradient(135deg,#0D47A1,#1E88E5); color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 700;">R</div>
-  </div>
-
-  <div role="presentation" aria-label="Use my location" style="position: absolute; right: 16px; top: 316px; width: 44px; height: 44px; border-radius: 22px; border: 0; background: #FFFFFF; box-shadow: 0 4px 14px rgba(11,31,58,.14); display: flex; align-items: center; justify-content: center;">
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v3M12 19v3M2 12h3M19 12h3"></path></svg>
-  </div>
-
-  <!-- bottom sheet -->
-  <div style="position: absolute; left: 0; right: 0; top: 372px; bottom: 0; background: #FFFFFF; border-radius: 28px 28px 0 0; box-shadow: 0 -8px 30px rgba(11,31,58,.10); display: flex; flex-direction: column; padding: 10px 16px 0; gap: 14px;">
-    <div style="width: 40px; height: 4px; border-radius: 2px; background: #DDE6F1; align-self: center;"></div>
-    <div style="font-size: 22px; font-weight: 700;">Where to, Ranjith?</div>
-
-    <!-- pickup / drop card -->
-    <div style="display: flex; gap: 12px; padding: 12px 14px; border-radius: 18px; background: #F2F6FB; border: 1px solid #DDE6F1;">
-      <div style="display: flex; flex-direction: column; align-items: center; padding-top: 6px; gap: 3px;">
-        <span style="width: 10px; height: 10px; border-radius: 5px; background: #43A047;"></span>
-        <span style="width: 2px; height: 34px; background: repeating-linear-gradient(#9AA9BE 0 4px, transparent 4px 7px);"></span>
-        <span style="width: 10px; height: 10px; border-radius: 2px; background: #d14343;"></span>
-      </div>
-      <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 10px;">
-        <div>
-          <div style="font-size: 11px; font-weight: 600; letter-spacing: .06em; color: #5D6B82;">PICKUP · GPS ±8 m</div>
-          <div style="font-size: 15px; font-weight: 600;">10-2-705/2, Saleh Nagar</div>
-        </div>
-        <div style="height: 1px; background: #DDE6F1;"></div>
-        <div style="font-size: 17px; font-weight: 600; color: #0D47A1;">Where are you going?</div>
-      </div>
-      <div role="presentation" aria-label="Swap pickup and drop" style="align-self: center; width: 36px; height: 36px; border-radius: 18px; border: 1px solid #DDE6F1; background: #FFFFFF; display: flex; align-items: center; justify-content: center;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M7 4v16M3 8l4-4 4 4M17 20V4M21 16l-4 4-4-4"></path></svg>
+<main>
+<!-- ===== HERO ===== -->
+<section id="home" class="hero">
+  <div class="wrap">
+    <div class="hero-text">
+      <span class="pill"><i></i>Now in Karimnagar, Telangana</span>
+      <h1>Choose your captain.<br>See the price.<br><em>No surge, ever.</em></h1>
+      <p class="sub">Book a <span class="rot" id="rot">bike</span> in seconds. Every nearby captain shows their own price, so you pick the one that suits you before you book.</p>
+      <div class="ctas">
+        <a class="store play" href="https://play.google.com/store/apps/details?id=com.cvv.grab_vehicle">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l14 9-14 9z"/></svg>
+          <span><small>Get it on</small><b>Google Play</b></span></a>
+        <span class="store soon" role="img" aria-label="App Store — coming soon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9s-1.9-.9-3.2-.8c-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8s1.9.8 3.2.8 2.1-1.2 2.9-2.4c.9-1.4 1.3-2.7 1.3-2.8 0 0-2.4-.9-2.4-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.1-.6 2.8-1.4z"/></svg>
+          <span><small>Coming soon on</small><b>App Store</b></span></span>
+        <a class="ghost" href="#captains">Drive and earn →</a>
       </div>
     </div>
 
-    <!-- saved chips -->
-    <div style="display: flex; gap: 8px;">
-      <div role="presentation" style="height: 36px; padding: 0 12px; border-radius: 18px; border: 1px solid #DDE6F1; background: #FFFFFF; display: flex; align-items: center; gap: 6px; font: 500 13px Outfit, sans-serif; color: #0B1F3A;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9h-6v-6H9v6H3z"></path></svg>Home</div>
-      <div role="presentation" style="height: 36px; padding: 0 12px; border-radius: 18px; border: 1px solid #DDE6F1; background: #FFFFFF; display: flex; align-items: center; gap: 6px; font: 500 13px Outfit, sans-serif; color: #0B1F3A;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"></rect><path d="M9 7V5h6v2"></path></svg>Work</div>
-      <div role="presentation" style="height: 36px; padding: 0 12px; border-radius: 18px; border: 1px solid #DDE6F1; background: #FFFFFF; display: flex; align-items: center; gap: 6px; font: 500 13px Outfit, sans-serif; color: #0B1F3A;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#5D6B82" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>Bus Stand</div>
-    </div>
-
-    <!-- vehicles -->
-    <div style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px;">
-      <div role="presentation" style="height: 86px; border-radius: 16px; border: 2px solid #1E88E5; background: #E3EFFD; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-family: Outfit, sans-serif; color: #0B1F3A;">
-        <svg width="30" height="30" viewBox="0 0 32 32" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="22" r="5"></circle><circle cx="25" cy="22" r="5"></circle><path d="M7 22l6-10h7l5 10M17 12l-2-4h-4"></path></svg>
-        <span style="font-size: 14px; font-weight: 600;">Bike</span><span style="font-size: 11px; color: #5D6B82;">1 seat</span></div>
-      <div role="presentation" style="height: 86px; border-radius: 16px; border: 1px solid #DDE6F1; background: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-family: Outfit, sans-serif; color: #0B1F3A;">
-        <svg width="30" height="30" viewBox="0 0 32 32" fill="none" stroke="#2E7D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 22V12l5-5h12l5 7v8z"></path><circle cx="10" cy="23" r="3"></circle><circle cx="23" cy="23" r="3"></circle><path d="M10 7v7h17"></path></svg>
-        <span style="font-size: 14px; font-weight: 600;">Auto</span><span style="font-size: 11px; color: #5D6B82;">3 seats</span></div>
-      <div role="presentation" style="height: 86px; border-radius: 16px; border: 1px solid #DDE6F1; background: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-family: Outfit, sans-serif; color: #0B1F3A;">
-        <svg width="30" height="30" viewBox="0 0 32 32" fill="none" stroke="#C62828" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21v-5l3-6h18l3 6v5z"></path><circle cx="9" cy="22" r="3"></circle><circle cx="23" cy="22" r="3"></circle><path d="M7 15h18"></path></svg>
-        <span style="font-size: 14px; font-weight: 600;">Cab</span><span style="font-size: 11px; color: #5D6B82;">4 seats</span></div>
-      <div role="presentation" style="height: 86px; border-radius: 16px; border: 1px solid #DDE6F1; background: #FFFFFF; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; font-family: Outfit, sans-serif; color: #0B1F3A;">
-        <svg width="30" height="30" viewBox="0 0 32 32" fill="none" stroke="#B7791F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 10l11-5 11 5v12l-11 5-11-5z"></path><path d="M5 10l11 5 11-5M16 15v12"></path></svg>
-        <span style="font-size: 14px; font-weight: 600;">Parcel</span><span style="font-size: 11px; color: #5D6B82;">OTP drop</span></div>
-    </div>
-
-    <!-- rent strip -->
-    <div role="presentation" style="height: 52px; border-radius: 16px; border: 0; background: linear-gradient(90deg,#FFF6D6,#FDEBB0); display: flex; align-items: center; gap: 10px; padding: 0 14px; font-family: Outfit, sans-serif; color: #0B1F3A; text-align: left;">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8A5A00" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="13" r="8"></circle><path d="M12 9v4l2 2M9 2h6"></path></svg>
-      <span style="flex-grow: 1;"><b style="font-size: 14px;">Rent a captain by hour or day</b><br><span style="font-size: 12px; color: #6B5413;">Shopping, hospital, office runs</span></span>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#8A5A00" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M9 6l6 6-6 6"></path></svg>
-    </div>
-  </div>
-
-  <!-- tab bar -->
-  <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 72px; background: #FFFFFF; border-top: 1px solid #DDE6F1; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));">
-    <span style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #0D47A1; font-size: 12px; font-weight: 600;">
-      <span style="width: 52px; height: 30px; border-radius: 15px; background: #E3EFFD; display: flex; align-items: center; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9h-6v-6H9v6H3z"></path></svg></span>Ride</span>
-    <span style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #5D6B82; font-size: 12px;">
-      <span style="height: 30px; display: flex; align-items: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5D6B82" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="6" cy="6" r="3"></circle><circle cx="18" cy="18" r="3"></circle><path d="M9 6h6a3 3 0 010 6H9a3 3 0 000 6h6"></path></svg></span>Trips</span>
-    <span style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #5D6B82; font-size: 12px;">
-      <span style="height: 30px; display: flex; align-items: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5D6B82" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="3" y="6" width="18" height="13" rx="3"></rect><path d="M16 12h2M3 10h18"></path></svg></span>Wallet</span>
-    <span style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; text-decoration: none; color: #5D6B82; font-size: 12px;">
-      <span style="height: 30px; display: flex; align-items: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5D6B82" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4 21c1-4 4-6 8-6s7 2 8 6"></path></svg></span>Account</span>
-  </div>
-</div></div>
-            </div>
+    <div class="live" aria-hidden="true">
+      <div class="mapcard">
+        <svg viewBox="0 0 420 230">
+          <rect width="420" height="230" fill="#EEF2EC"/>
+          <g stroke="#fff" fill="none" stroke-linecap="round">
+            <path id="r1" d="M-10 70 L430 30" stroke-width="14"/>
+            <path id="r2" d="M90 -10 L170 240" stroke-width="11"/>
+            <path id="r3" d="M-10 170 L430 140" stroke-width="11"/>
+            <path id="r4" d="M300 -10 L350 240" stroke-width="9"/>
+            <path d="M0 115 Q120 95 210 120 T430 105" stroke-width="6"/>
+          </g>
+          <path d="M340 -10 L430 90" stroke="#F6D77A" stroke-width="16"/>
+          <rect x="200" y="58" width="70" height="42" rx="8" fill="#DCE8D4"/>
+          <rect x="20" y="186" width="80" height="34" rx="8" fill="#DCE8D4"/>
+          <!-- you -->
+          <circle cx="210" cy="125" r="8" fill="#1E88E5" opacity=".5"><animate attributeName="r" values="8;34" dur="2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".5;0" dur="2s" repeatCount="indefinite"/></circle>
+          <circle cx="210" cy="125" r="8" fill="#1E88E5" stroke="#fff" stroke-width="3"/>
+          <!-- moving captains -->
+          <g><circle r="11" fill="#fff" stroke="#0D47A1" stroke-width="2.5"/><text y="4" text-anchor="middle" font-size="10" font-weight="700" fill="#0D47A1">B</text><animateMotion dur="9s" repeatCount="indefinite" rotate="0"><mpath href="#r1"/></animateMotion></g>
+          <g><circle r="11" fill="#fff" stroke="#2E7D32" stroke-width="2.5"/><text y="4" text-anchor="middle" font-size="10" font-weight="700" fill="#2E7D32">A</text><animateMotion dur="11s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1"><mpath href="#r2"/></animateMotion></g>
+          <g><circle r="11" fill="#fff" stroke="#C62828" stroke-width="2.5"/><text y="4" text-anchor="middle" font-size="10" font-weight="700" fill="#C62828">C</text><animateMotion dur="13s" repeatCount="indefinite"><mpath href="#r3"/></animateMotion></g>
+          <g><circle r="11" fill="#fff" stroke="#0D47A1" stroke-width="2.5"/><text y="4" text-anchor="middle" font-size="10" font-weight="700" fill="#0D47A1">B</text><animateMotion dur="10s" repeatCount="indefinite" keyPoints="1;0" keyTimes="0;1"><mpath href="#r4"/></animateMotion></g>
+        </svg>
+        <div class="sheet">
+          <h4>Choose your captain <span>No surge</span></h4>
+          <div class="offers">
+            <div class="offer best"><span class="av" style="background:#0D47A1">S</span><span><b>Srinivas · Bike</b><small>★ 4.9 · 3 min away</small></span><span class="pr">₹48</span></div>
+            <div class="offer"><span class="av" style="background:#2E7D32">R</span><span><b>Ravi · Auto</b><small>★ 4.8 · 5 min away</small></span><span class="pr">₹82</span></div>
+            <div class="offer"><span class="av" style="background:#6A1B9A">L</span><span><b>Lakshmi · Bike</b><small>★ 5.0 · Women captain</small></span><span class="pr">₹52</span></div>
           </div>
+          <div class="note" style="margin-top:10px">Example. Real captains and prices appear in the app.</div>
         </div>
       </div>
     </div>
-    <div style="height: 6px; background: repeating-linear-gradient(90deg,#FDD835 0 28px,#43A047 28px 56px);"></div>
-  </section>
+  </div>
+  <div class="stripe"></div>
+</section>
 
-  <!-- ===== PROMISES ===== -->
-  <section style="background: #F2F6FB;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 28px 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
-      <div style="display: flex; gap: 14px; align-items: center;">
-        <span style="width: 46px; height: 46px; flex-shrink: 0; border-radius: 14px; background: #E3EFFD; display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M3 20c.8-3.5 3.2-5.5 6-5.5s5.2 2 6 5.5M16 6l2 2 4-4"></path></svg></span>
-        <span><b style="font-size: 17px;">You choose the captain</b><br><span style="font-size: 14px; color: #5D6B82;">Compare name, rating and price</span></span></div>
-      <div style="display: flex; gap: 14px; align-items: center;">
-        <span style="width: 46px; height: 46px; flex-shrink: 0; border-radius: 14px; background: #dcf5ec; display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f7a56" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 4h12M6 9h12M10 4c4 0 4 5 0 5H6l8 11"></path></svg></span>
-        <span><b style="font-size: 17px;">Price fixed before you book</b><br><span style="font-size: 14px; color: #5D6B82;">What you see is what you pay</span></span></div>
-      <div style="display: flex; gap: 14px; align-items: center;">
-        <span style="width: 46px; height: 46px; flex-shrink: 0; border-radius: 14px; background: #FFF6D6; display: flex; align-items: center; justify-content: center;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8A5A00" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"></path><path d="M3 3l18 18"></path></svg></span>
-        <span><b style="font-size: 17px;">No surge, ever</b><br><span style="font-size: 14px; color: #5D6B82;">Same price at rush hour and in rain</span></span></div>
-    </div>
-  </section>
+<!-- ===== PROMISES ===== -->
+<section class="promise">
+  <div class="wrap">
+    <div class="pr-i reveal"><i style="background:#E3EFFD"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c.8-3.5 3.2-5.5 6-5.5s5.2 2 6 5.5M16 6l2 2 4-4"/></svg></i><span><b>You choose the captain</b><br><span>Compare name, rating and price</span></span></div>
+    <div class="pr-i reveal"><i style="background:#dcf5ec"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0f7a56" stroke-width="2" stroke-linecap="round"><path d="M6 4h12M6 9h12M10 4c4 0 4 5 0 5H6l8 11"/></svg></i><span><b>Price fixed before you book</b><br><span>What you see is what you pay</span></span></div>
+    <div class="pr-i reveal"><i style="background:#FFF6D6"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#8A5A00" stroke-width="2" stroke-linecap="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M3 3l18 18"/></svg></i><span><b>No surge, ever</b><br><span>Same price at rush hour and in rain</span></span></div>
+  </div>
+</section>
 
-  <!-- ===== SERVICES ===== -->
-  <section id="services" style="max-width: 1200px; margin: 0 auto; padding: 88px 24px 24px;">
-    <div style="font-size: 14px; font-weight: 700; letter-spacing: .08em; color: #1E88E5;">ONE APP</div>
-    <h2 style="margin: 8px 0 0; font-size: 42px; font-weight: 800; letter-spacing: -.01em;">Everything that moves you</h2>
-    <div style="margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px;">
-      <div style="padding: 24px; border-radius: 22px; border: 1px solid #DDE6F1; background: #FFFFFF;">
-        <svg width="44" height="44" viewBox="0 0 32 32" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="22" r="5"></circle><circle cx="25" cy="22" r="5"></circle><path d="M7 22l6-10h7l5 10M17 12l-2-4h-4"></path></svg>
-        <h3 style="margin: 14px 0 6px; font-size: 21px;">Bike</h3><p style="margin: 0; font-size: 15px; line-height: 1.5; color: #5D6B82;">Quickest way through traffic for one person.</p></div>
-      <div style="padding: 24px; border-radius: 22px; border: 1px solid #DDE6F1; background: #FFFFFF;">
-        <svg width="44" height="44" viewBox="0 0 32 32" fill="none" stroke="#2E7D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 22V12l5-5h12l5 7v8z"></path><circle cx="10" cy="23" r="3"></circle><circle cx="23" cy="23" r="3"></circle><path d="M10 7v7h17"></path></svg>
-        <h3 style="margin: 14px 0 6px; font-size: 21px;">Auto</h3><p style="margin: 0; font-size: 15px; line-height: 1.5; color: #5D6B82;">Up to 3 people, with shopping bags too.</p></div>
-      <div style="padding: 24px; border-radius: 22px; border: 1px solid #DDE6F1; background: #FFFFFF;">
-        <svg width="44" height="44" viewBox="0 0 32 32" fill="none" stroke="#C62828" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21v-5l3-6h18l3 6v5z"></path><circle cx="9" cy="22" r="3"></circle><circle cx="23" cy="22" r="3"></circle><path d="M7 15h18"></path></svg>
-        <h3 style="margin: 14px 0 6px; font-size: 21px;">Cab</h3><p style="margin: 0; font-size: 15px; line-height: 1.5; color: #5D6B82;">Comfortable rides for family and luggage.</p></div>
-      <div style="padding: 24px; border-radius: 22px; border: 1px solid #DDE6F1; background: #FFFFFF;">
-        <svg width="44" height="44" viewBox="0 0 32 32" fill="none" stroke="#B7791F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 10l11-5 11 5v12l-11 5-11-5z"></path><path d="M5 10l11 5 11-5M16 15v12"></path></svg>
-        <h3 style="margin: 14px 0 6px; font-size: 21px;">Parcel</h3><p style="margin: 0; font-size: 15px; line-height: 1.5; color: #5D6B82;">Send packages across town, handed over with an OTP.</p></div>
-      <div style="padding: 24px; border-radius: 22px; border: 0; background: linear-gradient(135deg,#FFF6D6,#FDEBB0);">
-        <svg width="44" height="44" viewBox="0 0 32 32" fill="none" stroke="#8A5A00" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="16" cy="17" r="10"></circle><path d="M16 11v6l4 3M12 3h8"></path></svg>
-        <h3 style="margin: 14px 0 6px; font-size: 21px;">Rent by hour or day</h3><p style="margin: 0; font-size: 15px; line-height: 1.5; color: #6B5413;">A captain and vehicle for shopping, hospital visits or office runs.</p></div>
-      <div style="padding: 24px; border-radius: 22px; border: 1px solid #DDE6F1; background: #FFFFFF;">
-        <svg width="44" height="44" viewBox="0 0 32 32" fill="none" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="7" width="22" height="20" rx="3"></rect><path d="M5 13h22M11 4v6M21 4v6"></path></svg>
-        <h3 style="margin: 14px 0 6px; font-size: 21px;">Schedule</h3><p style="margin: 0; font-size: 15px; line-height: 1.5; color: #5D6B82;">Book ahead for an early train or airport trip.</p></div>
-    </div>
-  </section>
-
-  <!-- ===== HOW IT WORKS ===== -->
-  <section id="how" style="max-width: 1200px; margin: 0 auto; padding: 72px 24px;">
-    <div style="font-size: 14px; font-weight: 700; letter-spacing: .08em; color: #1E88E5;">HOW IT WORKS</div>
-    <h2 style="margin: 8px 0 0; font-size: 42px; font-weight: 800;">Book in three taps</h2>
-    <div style="margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px;">
-      <div style="padding: 28px; border-radius: 22px; background: #F2F6FB;">
-        <span style="width: 44px; height: 44px; border-radius: 22px; background: #0D47A1; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 19px;">1</span>
-        <h3 style="margin: 18px 0 6px; font-size: 22px;">Enter where you're going</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #5D6B82;">Your pickup is filled in from GPS. Saved places and recent drops are one tap.</p></div>
-      <div style="padding: 28px; border-radius: 22px; background: #F2F6FB;">
-        <span style="width: 44px; height: 44px; border-radius: 22px; background: #0D47A1; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 19px;">2</span>
-        <h3 style="margin: 18px 0 6px; font-size: 22px;">Pick your captain</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #5D6B82;">See every nearby captain with their rating, vehicle and own price. Choose the one you like.</p></div>
-      <div style="padding: 28px; border-radius: 22px; background: #F2F6FB;">
-        <span style="width: 44px; height: 44px; border-radius: 22px; background: #43A047; color: #FFFFFF; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 19px;">3</span>
-        <h3 style="margin: 18px 0 6px; font-size: 22px;">Ride and pay your way</h3><p style="margin: 0; font-size: 16px; line-height: 1.55; color: #5D6B82;">Share the OTP to start. Pay by UPI, wallet or cash, and tip in the same tap.</p></div>
-    </div>
-  </section>
-
-  <!-- ===== CAPTAINS ===== -->
-  <section id="captains" style="background: #0B1F3A; color: #FFFFFF;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 88px 24px; display: flex; flex-wrap: wrap; gap: 48px; align-items: center;">
-      <div style="flex: 999 1 420px; min-width: 0;">
-        <div style="font-size: 14px; font-weight: 700; letter-spacing: .08em; color: #FDD835;">FOR CAPTAINS</div>
-        <h2 style="margin: 8px 0 0; font-size: 44px; font-weight: 800; line-height: 1.1;">Set your own price.<br>Keep what you earn.</h2>
-        <p style="margin: 18px 0 0; font-size: 18px; line-height: 1.6; color: #C9D6EA; max-width: 520px;">Drive your bike, auto or cab on your own schedule. Earnings go to your wallet at the end of every trip and are paid to your UPI.</p>
-        <a href="https://play.google.com/store/apps/details?id=com.cvv.grab_vehicle" style="margin-top: 28px; height: 54px; padding: 0 24px; border-radius: 16px; background: #FDD835; color: #0B1F3A; text-decoration: none; font-weight: 700; font-size: 16px; display: inline-flex; align-items: center;">Become a captain</a>
+<!-- ===== FARE EXPLORER ===== -->
+<section id="explore" class="explore">
+  <div class="wrap">
+    <div class="eyebrow reveal">TRY IT</div>
+    <h2 class="reveal">See how choosing your captain works</h2>
+    <p class="lead reveal">Pick a vehicle and a distance. Captains near you each offer their own price, and it never goes up at peak time.</p>
+    <div class="xbox">
+      <div class="panel reveal">
+        <div class="seg" role="group" aria-label="Vehicle">
+          <button type="button" data-v="bike" aria-pressed="true">🏍️ Bike</button>
+          <button type="button" data-v="auto" aria-pressed="false">🛺 Auto</button>
+          <button type="button" data-v="cab" aria-pressed="false">🚗 Cab</button>
+        </div>
+        <label class="lbl" for="dist">Trip distance</label>
+        <div class="km"><span id="kmv">6</span> km</div>
+        <input id="dist" type="range" min="2" max="25" value="6" aria-describedby="kmhelp">
+        <div class="cmp">
+          <div class="bar"><span>GrabVehicle, any time</span><span class="track"><span class="fill" id="f1" style="background:var(--g)"></span></span><b id="p1">₹—</b></div>
+          <div class="bar"><span>Surge app at peak (up to 2×)</span><span class="track"><span class="fill" id="f2" style="background:#d14343"></span></span><b id="p2">₹—</b></div>
+        </div>
+        <p class="note" id="kmhelp">Example prices to show the idea. In the app every captain sets their own rate, and you see the exact price before booking. Government rules (MVAG 2025) let other apps charge up to 2× at peak; GrabVehicle never does.</p>
       </div>
-      <div style="flex: 1 1 380px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px;">
-        <div style="padding: 22px; border-radius: 20px; background: #13305A;"><b style="font-size: 30px; color: #FDD835;">₹29</b><div style="margin-top: 6px; font-size: 15px; color: #C9D6EA;">Day pass. 0% commission, keep 100% of fares and tips</div></div>
-        <div style="padding: 22px; border-radius: 20px; background: #13305A;"><b style="font-size: 30px; color: #FDD835;">11%</b><div style="margin-top: 6px; font-size: 15px; color: #C9D6EA;">Or pay per ride. Nothing on days you don't drive</div></div>
-        <div style="padding: 22px; border-radius: 20px; background: #13305A;"><b style="font-size: 22px;">Your rate</b><div style="margin-top: 6px; font-size: 15px; color: #C9D6EA;">Set your own price per km and per hour</div></div>
-        <div style="padding: 22px; border-radius: 20px; background: #13305A;"><b style="font-size: 22px;">Skip freely</b><div style="margin-top: 6px; font-size: 15px; color: #C9D6EA;">No penalty for turning down a request</div></div>
+      <div class="panel reveal">
+        <h3 style="font-size:20px">Captains near you <span style="font-size:13px;font-weight:600;color:var(--mute)">(example)</span></h3>
+        <div class="caps" id="caps" role="list"></div>
+        <p class="note">Tap a captain to pick them. In the app, they get your request and you see them coming on the map.</p>
+        <div id="picked" class="note" style="font-weight:600;color:var(--b1)" aria-live="polite"></div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== SAFETY ===== -->
-  <section id="safety" style="max-width: 1200px; margin: 0 auto; padding: 88px 24px;">
-    <div style="font-size: 14px; font-weight: 700; letter-spacing: .08em; color: #1E88E5;">SAFETY</div>
-    <h2 style="margin: 8px 0 0; font-size: 42px; font-weight: 800;">Every trip, watched over</h2>
-    <div style="margin-top: 36px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px;">
-      <div style="display: flex; gap: 14px; padding: 22px; border-radius: 20px; border: 1px solid #DDE6F1;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex-shrink: 0;"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"></path><path d="M8.5 12l2.5 2.5 4.5-5"></path></svg><span><b style="font-size: 17px;">Verified captains</b><br><span style="font-size: 15px; color: #5D6B82; line-height: 1.5;">Licence, RC and insurance checked, with expiry dates tracked.</span></span></div>
-      <div style="display: flex; gap: 14px; padding: 22px; border-radius: 20px; border: 1px solid #DDE6F1;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex-shrink: 0;"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"></path><circle cx="12" cy="10" r="2.5"></circle></svg><span><b style="font-size: 17px;">Live trip tracking</b><br><span style="font-size: 15px; color: #5D6B82; line-height: 1.5;">Watch your captain arrive and share the trip with family.</span></span></div>
-      <div style="display: flex; gap: 14px; padding: 22px; border-radius: 20px; border: 1px solid #DDE6F1;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d14343" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex-shrink: 0;"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v6M12 16.5v.5"></path></svg><span><b style="font-size: 17px;">SOS in the app</b><br><span style="font-size: 15px; color: #5D6B82; line-height: 1.5;">One tap alerts your emergency contact with your location.</span></span></div>
-      <div style="display: flex; gap: 14px; padding: 22px; border-radius: 20px; border: 1px solid #DDE6F1;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex-shrink: 0;"><rect x="5" y="10" width="14" height="10" rx="2"></rect><path d="M8 10V7a4 4 0 018 0v3"></path></svg><span><b style="font-size: 17px;">Ride OTP</b><br><span style="font-size: 15px; color: #5D6B82; line-height: 1.5;">The trip starts only with your 4-digit code.</span></span></div>
-      <div style="display: flex; gap: 14px; padding: 22px; border-radius: 20px; border: 1px solid #DDE6F1;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6A1B9A" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex-shrink: 0;"><circle cx="12" cy="8" r="4"></circle><path d="M12 12v9M9 18h6"></path></svg><span><b style="font-size: 17px;">Women-only captains</b><br><span style="font-size: 15px; color: #5D6B82; line-height: 1.5;">Women riders can choose to see only women captains.</span></span></div>
-      <div style="display: flex; gap: 14px; padding: 22px; border-radius: 20px; border: 1px solid #DDE6F1;"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="flex-shrink: 0;"><path d="M4 5h16v11H8l-4 4z"></path><path d="M8 10h8"></path></svg><span><b style="font-size: 17px;">Help in your language</b><br><span style="font-size: 15px; color: #5D6B82; line-height: 1.5;">App and support in Telugu, Hindi and English.</span></span></div>
+<!-- ===== SERVICES ===== -->
+<section id="services" class="services">
+  <div class="wrap">
+    <div class="eyebrow reveal">ONE APP</div>
+    <h2 class="reveal">Everything that moves you</h2>
+    <div class="grid6">
+      <div class="card reveal"><svg width="44" height="44" viewBox="0 0 32 32" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7" cy="22" r="5"/><circle cx="25" cy="22" r="5"/><path d="M7 22l6-10h7l5 10M17 12l-2-4h-4"/></svg><h3>Bike</h3><p>Quickest way through traffic for one person.</p></div>
+      <div class="card reveal"><svg width="44" height="44" viewBox="0 0 32 32" fill="none" stroke="#2E7D32" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 22V12l5-5h12l5 7v8z"/><circle cx="10" cy="23" r="3"/><circle cx="23" cy="23" r="3"/><path d="M10 7v7h17"/></svg><h3>Auto</h3><p>Up to 3 people, with shopping bags too.</p></div>
+      <div class="card reveal"><svg width="44" height="44" viewBox="0 0 32 32" fill="none" stroke="#C62828" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 21v-5l3-6h18l3 6v5z"/><circle cx="9" cy="22" r="3"/><circle cx="23" cy="22" r="3"/><path d="M7 15h18"/></svg><h3>Cab</h3><p>Comfortable rides for family and luggage.</p></div>
+      <div class="card reveal"><svg width="44" height="44" viewBox="0 0 32 32" fill="none" stroke="#B7791F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 10l11-5 11 5v12l-11 5-11-5z"/><path d="M5 10l11 5 11-5M16 15v12"/></svg><h3>Parcel</h3><p>Send packages up to 10 kg across town, handed over only with the receiver's OTP.</p></div>
+      <div class="card gold reveal"><svg width="44" height="44" viewBox="0 0 32 32" fill="none" stroke="#8A5A00" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="16" cy="17" r="10"/><path d="M16 11v6l4 3M12 3h8"/></svg><h3>Rent by hour or day</h3><p>A captain and vehicle for shopping, hospital visits or office runs.</p></div>
+      <div class="card reveal"><svg width="44" height="44" viewBox="0 0 32 32" fill="none" stroke="#0B1F3A" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="7" width="22" height="20" rx="3"/><path d="M5 13h22M11 4v6M21 4v6"/></svg><h3>Schedule</h3><p>Book ahead for an early train or airport trip.</p></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== DOWNLOAD ===== -->
-  <section id="download" style="padding: 0 24px;">
-    <div style="max-width: 1152px; margin: 0 auto; border-radius: 32px; background: linear-gradient(135deg,#0D47A1,#1E88E5); color: #FFFFFF; padding: 56px 40px; display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between;">
-      <div style="min-width: 0; flex: 1 1 400px;">
-        <h2 style="margin: 0; font-size: 38px; font-weight: 800;">Your next ride, your price.</h2>
-        <p style="margin: 10px 0 0; font-size: 18px; color: #DCE8FA;">Available now on Android. iPhone app coming soon.</p></div>
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-      <a href="https://play.google.com/store/apps/details?id=com.cvv.grab_vehicle" style="height: 58px; padding: 0 24px; border-radius: 16px; background: #FFFFFF; color: #0B1F3A; text-decoration: none; display: flex; align-items: center; gap: 12px;">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l14 9-14 9z"></path></svg>
-        <span><span style="display: block; font-size: 11px; color: #5D6B82;">Get it on</span><b style="font-size: 17px;">Google Play</b></span></a>
-      <span role="img" aria-label="App Store — coming soon" style="height: 58px; padding: 0 22px; border-radius: 16px; border: 1.5px dashed rgba(255,255,255,.6); color: #FFFFFF; display: flex; align-items: center; gap: 12px; cursor: default;">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9s-1.9-.9-3.2-.8c-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8s1.9.8 3.2.8 2.1-1.2 2.9-2.4c.9-1.4 1.3-2.7 1.3-2.8 0 0-2.4-.9-2.4-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.1-.6 2.8-1.4z"/></svg>
-            <span><span style="display: block; font-size: 11px; color: #DCE8FA;">Coming soon on</span><b style="font-size: 17px;">App Store</b></span></span>
+<!-- ===== HOW ===== -->
+<section id="how" class="how">
+  <div class="wrap">
+    <div class="eyebrow reveal">HOW IT WORKS</div>
+    <h2 class="reveal">Book in three taps</h2>
+    <div class="steps">
+      <div class="step reveal"><h3>Enter where you're going</h3><p>Your pickup is filled in from GPS. Saved places and recent drops are one tap.</p></div>
+      <div class="step reveal"><h3>Pick your captain</h3><p>See every nearby captain with their rating, vehicle and own price. Choose the one you like.</p></div>
+      <div class="step reveal"><h3>Ride and pay your way</h3><p>Share the OTP to start. Pay by UPI, wallet or cash, and tip in the same tap.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CAPTAINS + EARNINGS CALCULATOR ===== -->
+<section id="captains" class="capt">
+  <div class="wrap">
+    <div class="l reveal">
+      <div class="eyebrow">FOR CAPTAINS</div>
+      <h2 style="font-size:44px">Set your own price.<br>Keep what you earn.</h2>
+      <p class="lead">Drive your bike, auto or cab on your own schedule. Earnings go to your wallet at the end of every trip and are paid to your UPI.</p>
+      <ul class="ticks">
+        <li>Choose a ₹29 day pass (0% commission) or pay only per ride</li>
+        <li>Set your own price per km and per hour for rentals</li>
+        <li>Skip any request freely, no penalty</li>
+        <li>Tips go 100% to you</li>
+      </ul>
+      <a class="yb" href="https://play.google.com/store/apps/details?id=com.cvv.grab_vehicle">Become a captain</a>
+    </div>
+    <div class="calc reveal">
+      <label for="earn">Your fares in a day</label>
+      <div class="big">₹<span id="earnv">1,500</span></div>
+      <input id="earn" type="range" min="300" max="4000" step="100" value="1500">
+      <div class="res">
+        <div id="rPass"><small>₹29 day pass</small><b id="kPass">—</b><small>platform fee ₹29</small></div>
+        <div id="rRide"><small>Pay per ride (11% + GST)</small><b id="kRide">—</b><small id="feeRide">platform fee —</small></div>
       </div>
+      <p class="note" id="tip">—</p>
+      <p class="note">Amounts after 5% ride GST, before TDS and tips. Your earnings show in the app after every trip.</p>
     </div>
-  </section>
+    <div class="join reveal">
+      <h3>Start driving in 4 steps</h3>
+      <ol class="jsteps">
+        <li><b>Download the app</b><span>Install GrabVehicle from Google Play and sign in with your mobile number (OTP).</span></li>
+        <li><b>Choose “Drive with GrabVehicle”</b><span>Add your vehicle: bike, auto or cab, with its number.</span></li>
+        <li><b>Upload your documents</b><span>Driving licence, RC, insurance and your photo, clicked straight from your phone.</span></li>
+        <li><b>Get verified and go online</b><span>Our team checks your documents. Once approved, pick a ₹29 day pass or pay per ride and start taking trips.</span></li>
+      </ol>
+      <p class="jnote">Keep your documents valid. The app reminds you before your licence, RC or insurance expires.</p>
+    </div>
+  </div>
+</section>
 
-  <!-- ===== CONTACT ===== -->
-  <section id="contact" style="max-width: 1200px; margin: 0 auto; padding: 88px 24px 64px;">
-    <h2 style="margin: 0; font-size: 36px; font-weight: 800;">Talk to us</h2>
-    <div style="margin-top: 28px; display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px;">
-      <a href="mailto:contact@cvvtechnologies.com" style="padding: 24px; border-radius: 20px; background: #F2F6FB; text-decoration: none; color: #0B1F3A;"><div style="font-size: 13px; font-weight: 600; color: #5D6B82; letter-spacing: .06em;">EMAIL</div><b style="display: block; margin-top: 8px; font-size: 18px;">contact@cvvtechnologies.com</b><span style="font-size: 14px; color: #5D6B82;">We reply within 24 hours</span></a>
-      <a href="tel:+919603013033" style="padding: 24px; border-radius: 20px; background: #F2F6FB; text-decoration: none; color: #0B1F3A;"><div style="font-size: 13px; font-weight: 600; color: #5D6B82; letter-spacing: .06em;">PHONE</div><b style="display: block; margin-top: 8px; font-size: 18px;">+91 96030 13033</b><span style="font-size: 14px; color: #5D6B82;">Mon–Sat, 9 AM – 6 PM</span></a>
-      <div style="padding: 24px; border-radius: 20px; background: #F2F6FB;"><div style="font-size: 13px; font-weight: 600; color: #5D6B82; letter-spacing: .06em;">OFFICE</div><b style="display: block; margin-top: 8px; font-size: 18px;">CVV Technologies</b><span style="font-size: 14px; color: #5D6B82; line-height: 1.5;">10-2-705/2, Vijaya Durga Colony, Karimnagar 505001, Telangana</span></div>
+<!-- ===== SAFETY ===== -->
+<section id="safety" class="safety">
+  <div class="wrap">
+    <div class="eyebrow reveal">SAFETY</div>
+    <h2 class="reveal">Every trip, watched over</h2>
+    <div class="sgrid">
+      <div class="si reveal"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg><span><b>Verified captains</b><span>Licence, RC and insurance checked, with expiry dates tracked.</span></span></div>
+      <div class="si reveal"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 21s-7-6-7-11a7 7 0 0114 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><span><b>Live trip tracking</b><span>Watch your captain arrive and share the trip with family.</span></span></div>
+      <div class="si reveal"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#d14343" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg><span><b>SOS in the app</b><span>One tap alerts your emergency contact with your location.</span></span></div>
+      <div class="si reveal"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 018 0v3"/></svg><span><b>Ride OTP</b><span>The trip starts only with your 4-digit code.</span></span></div>
+      <div class="si reveal"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#6A1B9A" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M12 12v9M9 18h6"/></svg><span><b>Women-only captains</b><span>Women riders can choose to see only women captains.</span></span></div>
+      <div class="si reveal"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 5h16v11H8l-4 4z"/><path d="M8 10h8"/></svg><span><b>Help in your language</b><span>App and support in Telugu, Hindi and English.</span></span></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ===== FOOTER ===== -->
-  <footer style="border-top: 1px solid #DDE6F1;">
-    <div style="max-width: 1200px; margin: 0 auto; padding: 28px 24px; display: flex; flex-wrap: wrap; gap: 16px 28px; align-items: center; font-size: 14px; color: #5D6B82;">
-      <span style="flex-grow: 1;">© 2026 GrabVehicle · A CVV Technologies product</span>
-      <a href="privacy/" style="color: #2C3E57; text-decoration: none;">Privacy</a>
-      <a href="terms/" style="color: #2C3E57; text-decoration: none;">Terms</a>
-      <a href="delete-account/" style="color: #2C3E57; text-decoration: none;">Delete account</a>
+<!-- ===== FAQ ===== -->
+<section id="faq" class="faq">
+  <div class="wrap">
+    <div class="eyebrow reveal">QUESTIONS</div>
+    <h2 class="reveal">Good to know</h2>
+    <div style="margin-top:24px">
+      <details class="reveal"><summary>Why are prices different for each captain?</summary><p>Each captain sets their own rate per km. You see every nearby captain's price before you book and pick the one you like. The price is fixed when you book and never rises at busy times.</p></details>
+      <details class="reveal"><summary>How can I pay?</summary><p>UPI in the app, your GrabVehicle wallet, or cash to the captain. You can add a tip in the same tap when you rate the trip.</p></details>
+      <details class="reveal"><summary>Is there a cancellation fee?</summary><p>Cancelling is free while we look for a captain, and for 2 minutes after a captain accepts. After that a small fee (₹5) applies, which goes to the captain for their time.</p></details>
+      <details class="reveal"><summary>How do parcels work?</summary><p>Choose Parcel, add the receiver's name and number, the item and its weight (up to 10 kg). The receiver gets an OTP, and the captain can hand over the parcel only with that code.</p></details>
+      <details class="reveal"><summary>Can I book a captain for a few hours?</summary><p>Yes. Choose Rent by hour or day, pick a captain and their vehicle, and keep them for shopping, hospital visits or office runs.</p></details>
+      <details class="reveal"><summary>How do I become a captain?</summary><p>Download the app, choose Drive with GrabVehicle, add your vehicle and upload your licence, RC and photos. We verify them and you can start driving once approved.</p></details>
+      <details class="reveal"><summary>How do I delete my account?</summary><p>In the app go to Account → Delete account, or see our <a href="delete-account/">delete account page</a>.</p></details>
     </div>
-  </footer>
-</div>
+  </div>
+</section>
+
+<!-- ===== DOWNLOAD ===== -->
+<section id="download" class="dl">
+  <div class="box reveal">
+    <div style="min-width:0;flex:1 1 400px"><h2>Your next ride, your price.</h2><p>Available now on Android. iPhone app coming soon.</p></div>
+    <div class="ctas" style="margin:0">
+      <a class="store play" href="https://play.google.com/store/apps/details?id=com.cvv.grab_vehicle"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0D47A1" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l14 9-14 9z"/></svg><span><small>Get it on</small><b>Google Play</b></span></a>
+      <span class="store soon" role="img" aria-label="App Store — coming soon"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-1.9-1.5-.2-2.9.9-3.7.9s-1.9-.9-3.2-.8c-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.1-.8s1.9.8 3.2.8 2.1-1.2 2.9-2.4c.9-1.4 1.3-2.7 1.3-2.8 0 0-2.4-.9-2.4-3.9zM14 5.5c.7-.8 1.1-1.9 1-3-1 0-2.1.7-2.8 1.5-.6.7-1.2 1.8-1 2.9 1.1.1 2.1-.6 2.8-1.4z"/></svg><span><small>Coming soon on</small><b>App Store</b></span></span>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CONTACT ===== -->
+<section id="contact" class="contact">
+  <div class="wrap">
+    <h2 class="reveal" style="font-size:36px">Talk to us</h2>
+    <div class="cgrid">
+      <a class="reveal" href="mailto:contact@cvvtechnologies.com"><small>EMAIL</small><b>contact@cvvtechnologies.com</b><span>We reply within 24 hours</span></a>
+      <a class="reveal" href="tel:+919603013033"><small>PHONE</small><b>+91 96030 13033</b><span>Mon–Sat, 9 AM – 6 PM</span></a>
+      <div class="reveal"><small>OFFICE</small><b>CVV Technologies</b><span>10-2-705/2, Vijaya Durga Colony, Karimnagar 505001, Telangana</span></div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span style="flex-grow:1">© 2026 GrabVehicle · A CVV Technologies product</span>
+    <a href="privacy/">Privacy</a><a href="terms/">Terms</a><a href="delete-account/">Delete account</a>
+  </div>
+</footer>
+
+<a class="mbar" id="mbar" href="https://play.google.com/store/apps/details?id=com.cvv.grab_vehicle">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FDD835" stroke-width="2.2" stroke-linejoin="round" aria-hidden="true"><path d="M5 3l14 9-14 9z"/></svg>Get GrabVehicle on Google Play</a>
+
+<script>
+(function(){
+  // rotating word in the hero
+  var words=['bike','auto','cab','parcel','captain for the day'],i=0,rot=document.getElementById('rot');
+  var still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(!still)setInterval(function(){i=(i+1)%words.length;rot.textContent=words[i]},2200);
+
+  // reveal on scroll
+  var els=document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window&&!still){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12});els.forEach(function(e){io.observe(e)})}
+  else els.forEach(function(e){e.classList.add('in')});
+
+  // fare explorer (illustrative per-km ranges; captains set real prices in the app)
+  var V={bike:{base:20,rates:[6,7,8],names:['Srinivas','Lakshmi','Kiran'],col:['#0D47A1','#6A1B9A','#00838F'],tag:['★ 4.9 · 3 min','★ 5.0 · Women captain','★ 4.7 · 6 min']},
+         auto:{base:30,rates:[11,12,14],names:['Ravi','Mahesh','Anil'],col:['#2E7D32','#E65100','#37474F'],tag:['★ 4.8 · 4 min','★ 4.9 · 7 min','★ 4.6 · 2 min']},
+         cab:{base:50,rates:[15,16,18],names:['Prakash','Suresh','Divya'],col:['#C62828','#1565C0','#6A1B9A'],tag:['★ 4.9 · 6 min','★ 4.7 · 5 min','★ 5.0 · Women captain']}};
+  var cur='bike',dist=document.getElementById('dist'),inr=function(n){return '₹'+Math.round(n).toLocaleString('en-IN')};
+  function draw(){var v=V[cur],km=+dist.value;document.getElementById('kmv').textContent=km;
+    var prices=v.rates.map(function(r){return v.base+r*km}),lo=Math.min.apply(null,prices),hi=Math.max.apply(null,prices),peak=hi*2;
+    document.getElementById('p1').textContent=inr(lo);document.getElementById('p2').textContent=inr(peak);
+    document.getElementById('f1').style.width=(lo/peak*100)+'%';document.getElementById('f2').style.width='100%';
+    var box=document.getElementById('caps');box.innerHTML='';
+    prices.map(function(p,k){return {p:p,k:k}}).sort(function(a,b){return a.p-b.p}).forEach(function(o,idx){
+      var b=document.createElement('button');b.type='button';b.className='offer'+(idx===0?' best':'');b.setAttribute('role','listitem');
+      b.style.cssText='width:100%;text-align:left;background:'+(idx===0?'#E3EFFD':'#fff')+';font:inherit;color:inherit';
+      b.innerHTML='<span class="av" style="background:'+v.col[o.k]+'">'+v.names[o.k][0]+'</span><span><b>'+v.names[o.k]+'</b><small>'+v.tag[o.k]+'</small></span><span class="pr">'+inr(o.p)+'</span>';
+      b.onclick=function(){box.querySelectorAll('.offer').forEach(function(x){x.classList.remove('best');x.style.background='#fff'});b.classList.add('best');b.style.background='#E3EFFD';
+        document.getElementById('picked').textContent='You picked '+v.names[o.k]+' for '+inr(o.p)+'. That is the price you pay, even at rush hour.'};
+      box.appendChild(b)});
+    document.getElementById('picked').textContent=''}
+  document.querySelectorAll('.seg button').forEach(function(b){b.onclick=function(){cur=b.dataset.v;document.querySelectorAll('.seg button').forEach(function(x){x.setAttribute('aria-pressed',x===b)});draw()}});
+  dist.oninput=draw;draw();
+
+  // captain earnings: fare F → ride GST 5% (inclusive) → net; per ride: 11% of net + 18% GST on it; day pass ₹29
+  var earn=document.getElementById('earn');
+  function calc(){var F=+earn.value,net=F-F*5/105,fee=net*0.11*1.18,keepRide=net-fee,keepPass=net-29;
+    document.getElementById('earnv').textContent=F.toLocaleString('en-IN');
+    document.getElementById('kPass').textContent=inr(keepPass);document.getElementById('kRide').textContent=inr(keepRide);
+    document.getElementById('feeRide').textContent='platform fee '+inr(fee);
+    var passWins=keepPass>=keepRide;document.getElementById('rPass').className=passWins?'win':'';document.getElementById('rRide').className=passWins?'':'win';
+    document.getElementById('tip').textContent=passWins?'On this day the ₹29 pass keeps you '+inr(keepPass-keepRide)+' more.':'On a quiet day like this, pay-per-ride costs less: you pay nothing on days you don’t drive.'}
+  earn.oninput=calc;calc();
+
+  // sticky "Get the app" bar on phones after the hero
+  var bar=document.getElementById('mbar'),hero=document.getElementById('home');
+  if('IntersectionObserver' in window)new IntersectionObserver(function(es){bar.classList.toggle('show',!es[0].isIntersecting)}).observe(hero);
+})();
+</script>
 </body>
 </html>
